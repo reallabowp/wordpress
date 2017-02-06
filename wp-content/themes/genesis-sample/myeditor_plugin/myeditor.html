@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>画像の引用リンク</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        (function( $, window, document, _ ){
+            var topDomain;
+
+            function getDomain( i_data ) {
+                var url = i_data;
+                var arr_uri = url.match(/^(.*?:\/\/)(.*?)([a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})[\:[0-9]*]?([\/].*?)?$/i);
+
+                topDomain = arr_uri[1] + arr_uri[3];
+            }
+
+            // 送信
+            $(document).on('click','#submit',function() {
+                var url = _.escape($('#image_url').val());
+                var alt = _.escape($('#image_alt').val());
+                var source = _.escape($('#image_source').val());
+
+                getDomain( url );
+
+                var linkTag = '<img src="' + url + '" alt="' + alt + '" /><p class="quote_link">出典：<a href="' + source + '" target="_blank">' + topDomain + '</a></p>';
+
+                top.tinymce.activeEditor.selection.setContent(linkTag);
+                top.tinymce.activeEditor.windowManager.close();
+
+                return false;
+            });
+
+            // キャンセル
+            $(document).on('click','#cancel',function(){
+                $('#image_url').val('');
+                top.tinymce.activeEditor.windowManager.close();
+
+                return false;
+            });
+
+        })(jQuery, window, document, _);
+    </script>
+</head>
+<body>
+    <div class="inner" style="padding: 30px;">
+        <p>画像のURL<input type="text" id="image_url" class="form-control" style="margin-bottom: 20px;" placeholder="ここに画像のURLを入れてください"></p>
+        <p>画像の出典元URL<input type="text" id="image_source" class="form-control" style="margin-bottom: 20px;" placeholder="ここに画像の出典元URLを入れてください"></p>
+        <p>画像の代替テキスト<input type="text" id="image_alt" class="form-control" style="margin-bottom: 20px;" placeholder="ここに画像の代替テキストを入れてください"></p>
+
+        <p style="text-align: center;">
+            <input type="button" id="cancel" class="btn btn-danger" value="Cancel" onclick="return false;" style="margin-right: 10px;">
+            <input type="button" class="btn btn-primary" id="submit" value="OK" onclick="return false;" />
+         </p>
+    </div>
+</body>
+</html>
