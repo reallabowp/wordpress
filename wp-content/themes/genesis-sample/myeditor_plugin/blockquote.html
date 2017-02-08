@@ -10,13 +10,15 @@
     <script>
 
         (function( $, window, document, _ ){
+          var this_url = location.pathname
+          var this_dir = this_url.substr(0, this_url.length-15);
 
             // 送信
             $(document).on('click','#submit',function() {
 
-                function urlToTitle(externalUrl, target){
+                function urlToTitle(externalUrl, target, url2){
                   $.ajax({
-                    url: 'http://hairlly.local/wp-content/themes/genesis-sample/myeditor_plugin/urlToTitle.php',
+                    url: url2 + 'urlToTitle.php',
                     async:true,
                     dataType: 'json',
                     data:{'url':externalUrl},
@@ -30,9 +32,9 @@
                     }
                   });
                 }
-                var url = _.escape($('#quote_url').val())
 
-                urlToTitle(url, $('#quote_title'));
+                var url = _.escape($('#quote_url').val())
+                urlToTitle(url, $('#quote_title'), this_dir);
 
                 return false;
             });
