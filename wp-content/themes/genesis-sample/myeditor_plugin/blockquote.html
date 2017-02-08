@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>画像の引用リンク</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+
+        (function( $, window, document, _ ){
+
+            // 送信
+            $(document).on('click','#submit',function() {
+
+                function urlToTitle(externalUrl, target){
+                  $.ajax({
+                    url: 'http://hairlly.local/wp-content/themes/genesis-sample/myeditor_plugin/urlToTitle.php',
+                    async:true,
+                    dataType: 'json',
+                    data:{'url':externalUrl},
+                    success: function(data) {
+                      var atitle = target.val(data.title);
+                      var text = _.escape($('#quote_text').val());
+                      var linkTag = '<div class="bq_content"><blockquote><p>' + text + '</p></blockquote><p class="quote">出典：<cite><a class="quote_link" href="' + url + '" target="_blank">' + _.escape(atitle.val()) + '</a></cite></p></div>';
+
+                      top.tinymce.activeEditor.selection.setContent(linkTag);
+                      top.tinymce.activeEditor.windowManager.close();
+                    }
+                  });
+                }
+                var url = _.escape($('#quote_url').val())
+
+                urlToTitle(url, $('#quote_title'));
+
+                return false;
+            });
+
+            // キャンセル
+            $(document).on('click','#cancel',function(){
+                $('#quote_url').val('');
+                top.tinymce.activeEditor.windowManager.close();
+
+                return false;
+            });
+
+        })(jQuery, window, document, _);
+    </script>
+</head>
+<body>
+    <div class="inner" style="padding: 30px;">
+        <p><textarea id="quote_text" class="form-control" rows="4" cols="30" placeholder="ここに引用する文章を入力してください"></textarea></p>
+        <p>引用元のURL<input type="text" id="quote_url" class="form-control" style="margin-bottom: 20px;" placeholder="ここに引用元のURLを入力してください"></p>
+        <p><input type="hidden" id="quote_title" placeholder="title1"></p>
+        <p style="text-align: center;">
+            <input type="button" id="cancel" class="btn btn-danger" value="Cancel" onclick="return false;" style="margin-right: 10px;">
+            <input type="button" class="btn btn-primary" id="submit" value="OK" onclick="return false;" />
+         </p>
+    </div>
+</body>
+</html>

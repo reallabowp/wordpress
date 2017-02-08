@@ -153,6 +153,7 @@ function genesis_sample_comments_gravatar( $args ) {
 // 編集画面にボタンを追加
 function register_button($buttons) {
 	$buttons[] = 'blockquote_link';
+	$buttons[] = 'blockquote_val';
 	return $buttons;
 }
 add_filter('mce_buttons', 'register_button');
