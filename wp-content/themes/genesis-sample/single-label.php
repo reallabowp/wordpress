@@ -1,6 +1,6 @@
 <?php
-$key = "url";
-$redirect = get_post_meta($post->ID, $key, true);
+
+$redirect = esc_url($post->post_content);
 header("Location:$redirect");
 
 exit;

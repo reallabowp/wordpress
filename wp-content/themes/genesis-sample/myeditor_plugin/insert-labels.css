@@ -1,0 +1,91 @@
+#insert-labels-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 360px;
+  background: #000;
+  opacity: .7;
+  z-index: 159900;
+}
+#insert-labels-wrap {
+  display: none;
+  position: fixed;
+  width: 50%;
+  z-index: 999999;
+  background-color: #ffffff;
+  margin: auto;
+  left: 0px;
+  right: 0px;
+}
+#insert-labels-wrap .modal {
+  width: 100%;
+}
+#insert-labels-wrap .modal .header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #dedede;
+  padding: 10px 20px;
+  position: relative;
+}
+#insert-labels-wrap .modal .header h1 {
+  font-size: 16px;
+  margin: 0;
+}
+#insert-labels-wrap .modal .header .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  text-decoration: none;
+  color: #555555;
+}
+#insert-labels-wrap .modal .container {
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+
+#insert-labels-wrap .modal .container p {
+  color: #757575;
+}
+
+
+#insert-labels-wrap .modal .footer {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #dedede;
+  overflow: auto;
+  clear: both;
+}
+
+#insert-labels-wrap #insert-labels-preview {
+  display: block;
+  border: none;
+  margin: 10px 0;
+  padding: 0;
+  border: 1px solid #dedede;
+  width: 100%;
+}
+
+#insert-labels-wrap #insert-labels-insert {
+  display: block;
+  float: right;
+}
+
+#left-option, #right-option {
+  width: 41%;
+  float: left;
+  margin-left: 6%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+#insert-labels-list, #label-type-list, #label-title, #label-text{
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+#label-title, #label-text{
+  padding: 5px 10px;
+  border-radius: 3px;
+}
